@@ -5,7 +5,7 @@
   "main": "src/app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./build/app.js"    
+    "start": "npx tsc && node ./build/app.js"
   },
   "repository": {
     "type": "git",
@@ -22,9 +22,12 @@
   },
   "homepage": "https://github.com/MariaFernandaUmbarila/ClinicaBackend#readme",
   "dependencies": {
-    "@types/express": "^4.17.17",
     "express": "^4.18.2",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.3.3",
     "typescript": "^5.1.6"
   }
 }
