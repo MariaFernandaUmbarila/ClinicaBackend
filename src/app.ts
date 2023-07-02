@@ -19,3 +19,4 @@ app.get('/api/v1/listar_especialidades', (req: Request, res: Response) => {
 app.listen(port, 'localhost', () => {
     console.log('Servidor escuchando en el puerto ' + port);
 });
+
