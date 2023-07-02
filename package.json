@@ -1,0 +1,30 @@
+{
+  "name": "clinicabackend",
+  "version": "1.0.0",
+  "description": "Backend para actividad de la unidad 6",
+  "main": "src/app.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./build/app.js"    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MariaFernandaUmbarila/ClinicaBackend.git"
+  },
+  "keywords": [
+    "node",
+    "typescript"
+  ],
+  "author": "Maria Fernanda Umbarila Suarez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MariaFernandaUmbarila/ClinicaBackend/issues"
+  },
+  "homepage": "https://github.com/MariaFernandaUmbarila/ClinicaBackend#readme",
+  "dependencies": {
+    "@types/express": "^4.17.17",
+    "express": "^4.18.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  }
+}
