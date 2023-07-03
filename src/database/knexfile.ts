@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+//Configuración para conexión a bd
 module.exports = {
     development:{
         client: 'pg',

@@ -1,4 +1,5 @@
 import express, {Request, Response} from 'express';
+import logger from './utils/logger' 
 
 const app = express();
 const port = 3030;
@@ -17,6 +18,6 @@ app.get('/api/v1/listar_especialidades', (req: Request, res: Response) => {
 });
 
 app.listen(port, 'localhost', () => {
-    console.log('Servidor escuchando en el puerto ' + port);
+    logger.info(`Server is listening on port ${port}`)
 });
 
