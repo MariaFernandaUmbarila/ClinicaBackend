@@ -9,6 +9,7 @@ export interface Doctor{
     doct_createdAt: Date
 };
 
+//Modelo para las peticiones que se reciben desde bd
 export interface DoctorReq{
     doct_nombre: string,
     doct_apellido: string,

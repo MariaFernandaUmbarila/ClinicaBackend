@@ -3,7 +3,7 @@ import { DoctorRepository } from './repository';
 
 //Interfaz para obtener todos los doctores
 export interface DoctorService{
-    getAllDoctors(): Doctor[];
+    getAllDoctors(): Promise<Doctor[]>;
     createDoctor(doctorReq:DoctorReq): Promise<Doctor>;
 };
 
@@ -16,13 +16,13 @@ export class DoctorServiceImpl implements DoctorService{
         this.doctorRepository = new DoctorRepository();
     }
 
-    public getAllDoctors(): Doctor[] {
-        return [];
+    public getAllDoctors(): Promise<Doctor[]> {
+        const doctors:Promise<Doctor[]> = this.doctorRepository.getAllDoctors();
+        return doctors;
     }
 
     public createDoctor(doctorReq:DoctorReq): Promise<Doctor> {
-        const createdDoctor:Promise<Doctor> = this.doctorRepository.createDoctor(doctorReq).then();
-        return createdDoctor;
+        return this.doctorRepository.createDoctor(doctorReq);
     }
 
 };
