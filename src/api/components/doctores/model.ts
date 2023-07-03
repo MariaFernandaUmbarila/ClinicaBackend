@@ -6,6 +6,13 @@ export interface Doctor{
     doct_especialidad: string,
     doct_consultorio: string,
     doct_correo: string,
-    correo?: string,
-    createdAt?: Date
+    doct_createdAt: Date
+};
+
+export interface DoctorReq{
+    doct_nombre: string,
+    doct_apellido: string,
+    doct_especialidad: string,
+    doct_consultorio: string,
+    doct_correo: string,
 };
