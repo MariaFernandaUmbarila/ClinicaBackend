@@ -1,5 +1,6 @@
 import express, {Request, Response} from 'express';
-import logger from './utils/logger' 
+import logger from './utils/logger'; 
+import routes from './api/routes';
 
 const app = express();
 const port = 3030;
@@ -7,16 +8,10 @@ const port = 3030;
 //Convierte todos los bodies de los request en JSON
 app.use(express.json());
 
-app.get('/api/v1/listar_especialidades', (req: Request, res: Response) => {
-    const especialidades = [{
-        "_id":1,
-        "esp_nombre":"Medicina general",
-        "esp_usurio_creacion":"mariaf",
-        "esp_usuario_modifica":"mariaf"
-    }];
-    res.send(especialidades);
-});
+//Rutas a usar
+app.use('/api/v1', routes);
 
+//Abre la escucha en el puerto escogido
 app.listen(port, 'localhost', () => {
     logger.info(`Server is listening on port ${port}`)
 });
