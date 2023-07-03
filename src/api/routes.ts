@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import doctorRoutes from './components/doctores/doctorRoutes';
+import doctorRoutes from './components/doctores/routes';
 
 const router = Router();
 
