@@ -5,8 +5,8 @@ export interface Doctor{
     doct_apellido: string,
     doct_especialidad: string,
     doct_consultorio: string,
-    doct_correo: string,
-    doct_createdAt: Date
+    doct_correo?: string,
+    doct_createdAt?: Date
 };
 
 //Modelo para las peticiones que se reciben

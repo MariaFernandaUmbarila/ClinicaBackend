@@ -12,8 +12,8 @@ export class DoctorServiceImpl implements DoctorService{
 
     private doctorRepository:DoctorRepository;
 
-    constructor(){
-        this.doctorRepository = new DoctorRepository();
+    constructor(doctorRepository:DoctorRepository){
+        this.doctorRepository = doctorRepository;
     }
 
     public getAllDoctors(): Promise<Doctor[]> {
