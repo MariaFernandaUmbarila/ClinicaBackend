@@ -1,9 +1,10 @@
-import {Appointment} from './model';
-import {Request, Response} from 'express';
 import { AppointmentService } from './service';
+import { Request, Response } from 'express';
+import logger from '../../../utils/logger';
 
 export interface AppointmentController{
     getAllAppointments(req:Request, res:Response): void;
+    createAppointment(req:Request, res:Response): void;
 };
 
 export class AppointmentControllerImpl implements AppointmentController{
@@ -17,11 +18,30 @@ export class AppointmentControllerImpl implements AppointmentController{
     }
 
     //Lógica del endpoint
-    public getAllAppointments(req: Request, res: Response): void {
+    public async getAllAppointments(req: Request, res: Response): Promise<void>{
 
-        //Definición de la constante para recibir respuesta del servicio
-        //Debe coincidir con lo establecido en el servicio
-        const appointments:Appointment[] = this.appointmentService.getAllAppointments();
-        res.json(appointments);
+        try{
+            const appointmentslist = await this.appointmentService.getAllAppointments();                
+            res.status(201).json(appointmentslist);
+            
+        }catch(error){
+            logger.error(error);
+            res.status(400).json({message:error});
+        }
+    }
+
+    public createAppointment(req: Request, res: Response): void {
+
+        //Se guarda el body de la petición recibida
+        const appointmentReq = req.body;
+
+        try{
+            this.appointmentService.createAppointment(appointmentReq).then((appointment) => {
+                res.status(201).json(appointment);
+            });
+        }catch(error){
+            logger.error(error);
+            res.status(400).json({message:error});
+        }
     }
 };

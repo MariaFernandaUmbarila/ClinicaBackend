@@ -1,4 +1,4 @@
-import {Doctor, DoctorReq} from './model';
+import { Doctor, DoctorReq } from './model';
 import { DoctorRepository } from './repository';
 
 //Interfaz para obtener todos los doctores

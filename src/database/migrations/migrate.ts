@@ -36,6 +36,7 @@ export async function up(knex:Knex): Promise<void> {
             cita_paci_identif VARCHAR,
             cita_created_at timestamptz,
             cita_updated_at timestamptz,
+            cita_consultorio VARCHAR,
             PRIMARY key(cita_id),
             CONSTRAINT fk_doctores
             FOREIGN KEY (cita_doct_id)
