@@ -1,9 +1,10 @@
-import {Patient} from './model';
-import {Request, Response} from 'express';
+import { Request, Response } from 'express';
+import logger from '../../../utils/logger';
 import { PatientService } from './service';
 
 export interface PatientController{
     getAllPatients(req:Request, res:Response): void;
+    createPatient(req:Request, res:Response): void;
 };
 
 export class PatientControllerImpl implements PatientController{
@@ -17,11 +18,30 @@ export class PatientControllerImpl implements PatientController{
     }
 
     //Lógica del endpoint
-    public getAllPatients(req: Request, res: Response): void {
+    public async getAllPatients(req: Request, res: Response): Promise<void>{
 
-        //Definición de la constante para recibir respuesta del servicio
-        //Debe coincidir con lo establecido en el servicio
-        const patients:Patient[] = this.patientService.getAllPatients();
-        res.json(patients);
+        try{
+            const patientslist = await this.patientService.getAllPatients();                
+            res.status(201).json(patientslist);
+            
+        }catch(error){
+            logger.error(error);
+            res.status(400).json({message:error});
+        }
+    }
+
+    public createPatient(req: Request, res: Response): void {
+
+        //Se guarda el body de la petición recibida
+        const patientReq = req.body;
+
+        try{
+            this.patientService.createPatient(patientReq).then((patient) => {
+                res.status(201).json(patient);
+            });
+        }catch(error){
+            logger.error(error);
+            res.status(400).json({message:error});
+        }
     }
 };
