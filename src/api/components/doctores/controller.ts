@@ -26,7 +26,7 @@ export class DoctorControllerImpl implements DoctorController{
             
         }catch(error){
             logger.error(error);
-            res.status(400).json({message:error});
+            res.status(400).json({message:'Error trayendo doctores'});
         }
     }
 
@@ -35,13 +35,15 @@ export class DoctorControllerImpl implements DoctorController{
         //Se guarda el body de la petición recibida
         const doctorReq = req.body;
 
-        try{
-            this.doctorService.createDoctor(doctorReq).then((doctor) => {
-                res.status(200).json(doctor);
-            });
-        }catch(error){
-            logger.error(error);
-            res.status(400).json({message:error});
-        }
+        this.doctorService.createDoctor(doctorReq)
+        .then(
+            (doctor) => {
+                res.status(201).json(doctor);
+            },
+            (error) => {
+                logger.error(error);
+                res.status(400).json({message:'Error creando doctor'});
+            }
+        );
     }
 };
