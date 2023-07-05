@@ -1,5 +1,5 @@
 import { DoctorRepository } from './../api/components/doctores/repository';
-import { Doctor } from './../api/components/doctores/model';
+import { Doctor, DoctorReq } from './../api/components/doctores/model';
 import { DoctorServiceImpl } from './../api/components/doctores/service';
 
 //El servicio no recibe request ni response
@@ -54,6 +54,74 @@ describe('DoctorService', () => {
 
             expect(doctorRepository.getAllDoctors).toHaveBeenCalled();
             expect(result).toEqual([]);
+
+        });
+    });
+
+    describe('createDoctor', () => {
+
+        //Definición de la prueba para createDoctor
+        it('Deberia crear al doctor desde el servicio', async () => {
+
+            //Instanciacion del modelo del response
+            const doctorRes:Doctor[] = [{
+                doct_id: 9, 
+                doct_nombre: 'Roberta',
+                doct_apellido: 'Salazar', 
+                doct_especialidad: 'Medicina general',
+                doct_consultorio: '404',
+                doct_correo: 'rsalazar@gmail.com'
+            }];
+            //Instanciación del modelo del request
+            const doctReq:DoctorReq = {
+                doct_nombre: 'Roberta',
+                doct_apellido: 'Salazar', 
+                doct_especialidad: 'Medicina general',
+                doct_consultorio: '404',
+                doct_correo: 'rsalazar@gmail.com'
+            };
+
+            //Definición de la respuesta que se espera con jest
+            (doctorRepository.createDoctor as jest.Mock).mockResolvedValue(doctorRes);
+            //Llamado a la función del servicio
+            const result = await doctorService.createDoctor(doctReq);
+
+            //Se espera que el servicio se haya llamado al menos una vex
+            expect(doctorRepository.getAllDoctors).toHaveBeenCalledWith(doctReq);
+            //Se espera que el resultado de la respuesta sea el de doctors
+            expect(result).toEqual(doctorRes);
+
+        });
+
+        //Definición de la prueba de error
+        it('Deberia retornar un error en la creacion', async () => {
+
+            //Definición de lo que se espera en la respuesta con jest
+            const error = new Error('Internal Server Error');
+
+            const doctorRes:Doctor[] = [{
+                doct_id: 9, 
+                doct_nombre: 'Roberta',
+                doct_apellido: 'Salazar', 
+                doct_especialidad: 'Medicina general',
+                doct_consultorio: '404',
+                doct_correo: 'rsalazar@gmail.com'
+            }];
+            const doctReq:DoctorReq = {
+                doct_nombre: 'Roberta',
+                doct_apellido: 'Salazar', 
+                doct_especialidad: 'Medicina general',
+                doct_consultorio: '404',
+                doct_correo: 'rsalazar@gmail.com'
+            };
+
+            //Definición de lo que se espera en la respuesta con jest
+            (doctorRepository.createDoctor as jest.Mock).mockRejectedValue(error);
+
+            const result = await doctorService.createDoctor(doctReq);
+
+            expect(result).rejects.toThrowError(error);
+            expect(doctorRepository.createDoctor).toHaveBeenCalledWith(doctReq);
 
         });
     });

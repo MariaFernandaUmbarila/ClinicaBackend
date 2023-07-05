@@ -24,7 +24,7 @@ describe('DoctorController', () => {
 
     describe('getAllDoctors', () => {
 
-        //Definición de la prueba para getAllDoctors
+        //Definición de la prueba para getAllDoctor
         it('Deberia listar todos los doctores', async () => {
 
             //Instanciacion del modelo a usar
