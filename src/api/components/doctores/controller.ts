@@ -17,12 +17,12 @@ export class DoctorControllerImpl implements DoctorController{
         this.doctorService = doctorService;
     }
 
-    //Lógica del endpoint
+    //Lógica del endpoint que es traída desde el servicio
     public async getAllDoctors(req: Request, res: Response): Promise<void>{
 
         try{
             const doctorslist = await this.doctorService.getAllDoctors();                
-            res.status(201).json(doctorslist);
+            res.status(200).json(doctorslist);
             
         }catch(error){
             logger.error(error);
@@ -37,7 +37,7 @@ export class DoctorControllerImpl implements DoctorController{
 
         try{
             this.doctorService.createDoctor(doctorReq).then((doctor) => {
-                res.status(201).json(doctor);
+                res.status(200).json(doctor);
             });
         }catch(error){
             logger.error(error);
