@@ -1,5 +1,6 @@
 import { Doctor, DoctorReq } from './model';
 import { db } from '../../../config/database';
+import { DoctorCreateError, DoctorGetAllError } from '../../../config/custErrors';
 
 export class DoctorRepository{
 
@@ -8,7 +9,7 @@ export class DoctorRepository{
             //Retorna una variable de tipo any
             return db.select('*').from('doctores');
         }catch(error){
-            throw new Error(`Error consultando doctores: ${error}`);
+            throw new DoctorGetAllError();
         }
     }
 
@@ -19,7 +20,7 @@ export class DoctorRepository{
             const [createdDoctor] = await db('doctores').insert(doctor).returning('*');
             return createdDoctor;
         }catch(error){
-            throw new Error(`Error creando al doctor: ${error}`);
+            throw new DoctorCreateError();
         }
     }
 }

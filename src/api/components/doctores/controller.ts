@@ -42,7 +42,7 @@ export class DoctorControllerImpl implements DoctorController{
             },
             (error) => {
                 logger.error(error);
-                res.status(400).json({message:'Error creando doctor'});
+                res.status(400).json({message: error.message});
             }
         );
     }

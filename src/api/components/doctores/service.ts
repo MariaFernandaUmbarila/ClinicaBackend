@@ -1,3 +1,4 @@
+import { DoctorCreateError } from '../../../config/custErrors';
 import { Doctor, DoctorReq } from './model';
 import { DoctorRepository } from './repository';
 
@@ -22,7 +23,12 @@ export class DoctorServiceImpl implements DoctorService{
     }
 
     public createDoctor(doctorReq:DoctorReq): Promise<Doctor> {
-        return this.doctorRepository.createDoctor(doctorReq);
+        try{
+            return this.doctorRepository.createDoctor(doctorReq);
+        } catch (error){
+            throw new DoctorCreateError();
+        }
+        
     }
 
 };

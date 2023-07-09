@@ -118,9 +118,8 @@ describe('DoctorService', () => {
             //Definición de lo que se espera en la respuesta con jest
             (doctorRepository.createDoctor as jest.Mock).mockRejectedValue(error);
 
-            const result = await doctorService.createDoctor(doctReq);
-
-            expect(result).rejects.toThrowError(error);
+            //Esperar a que se ejecute para que pase por el middleware
+            await expect(doctorService.createDoctor(doctReq)).rejects.toThrowError(error);
             expect(doctorRepository.createDoctor).toHaveBeenCalledWith(doctReq);
 
         });
