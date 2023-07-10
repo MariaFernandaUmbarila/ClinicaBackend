@@ -1,10 +1,12 @@
 import { Request, Response } from 'express';
 import logger from '../../../utils/logger';
 import { DoctorService } from './service';
+import { DoctorGetByIdError } from '../../../config/custErrors';
 
 export interface DoctorController{
     getAllDoctors(req:Request, res:Response): void;
     createDoctor(req:Request, res:Response): void;
+    getDoctorById(req:Request, res:Response): void;
 };
 
 export class DoctorControllerImpl implements DoctorController{
@@ -27,6 +29,25 @@ export class DoctorControllerImpl implements DoctorController{
         }catch(error){
             logger.error(error);
             res.status(400).json({message:'Error trayendo doctores'});
+        }
+    }
+
+    //En este endpoint se reciben path variables
+    public async getDoctorById(req: Request, res: Response): Promise<void>{
+        try{
+            const id = parseInt(req.params.id);
+            const doctor = await this.doctorService.getDoctorById(id);
+            if (doctor){
+                res.status(200).json(doctor);
+            }else{
+                throw new DoctorGetByIdError();
+            }
+        }catch (error){
+            if(error instanceof DoctorGetByIdError){
+                res.status(400).json({error: error.message});
+            }else{
+                res.status(400).json({error: "Error trayendo doctor por id"});
+            }
         }
     }
 

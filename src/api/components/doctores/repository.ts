@@ -1,9 +1,10 @@
 import { Doctor, DoctorReq } from './model';
 import { db } from '../../../config/database';
-import { DoctorCreateError, DoctorGetAllError } from '../../../config/custErrors';
+import { DoctorCreateError, DoctorGetAllError, DoctorGetByIdError } from '../../../config/custErrors';
 
 export class DoctorRepository{
 
+    //Lista todos los doctores
     public async getAllDoctors(): Promise<Doctor[]>{
         try{
             //Retorna una variable de tipo any
@@ -11,6 +12,18 @@ export class DoctorRepository{
         }catch(error){
             throw new DoctorGetAllError();
         }
+    }
+
+    //Lista la información de un doctor dado el id
+    public async getDoctorById(id:number): Promise<Doctor>{
+        try{
+            //Búsqueda del doctor por id, es manejado como objeto
+            const doctor = await db('doctores').where({doct_id: id}).first();
+            return doctor;
+        }catch(error){
+            throw new DoctorGetByIdError();
+        }
+
     }
 
     //Retorna una promesa por lo que es una función async
@@ -23,4 +36,6 @@ export class DoctorRepository{
             throw new DoctorCreateError();
         }
     }
+
+    
 }

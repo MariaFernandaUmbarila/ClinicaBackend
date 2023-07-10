@@ -15,7 +15,8 @@ describe('DoctorController', () => {
     beforeEach (() => {
         doctorService = {
             getAllDoctors: jest.fn(),
-            createDoctor: jest.fn()
+            createDoctor: jest.fn(),
+            getDoctorById: jest.fn()
         };
         doctorController = new DoctorControllerImpl(doctorService);
         mockRes.status = jest.fn().mockReturnThis();
@@ -60,6 +61,63 @@ describe('DoctorController', () => {
 
             expect(doctorService.getAllDoctors).toHaveBeenCalled();
             expect(mockRes.json).toHaveBeenCalledWith({message: 'Error trayendo doctores'});
+            expect(mockRes.status).toHaveBeenCalledWith(400);
+
+        });
+    });
+
+    describe('getDoctorById', () => {
+        it('Deberia obtener el doctor por id', async () => {
+
+            const doctorRes:Doctor[] = [{
+                doct_id: 9, 
+                doct_nombre: 'Cristina',
+                doct_apellido: 'Alvarado', 
+                doct_especialidad: 'Cardiologia',
+                doct_consultorio: '403',
+                doct_correo: 'carol@doctor.com'
+            }];
+
+            (mockReq.params) = {id:"1"};
+            //Definición de la respuesta que se espera con jest
+            (doctorService.getDoctorById as jest.Mock).mockResolvedValue(doctorRes);          
+
+            //Llamado a la función del controlador
+            await doctorController.getDoctorById(mockReq, mockRes);
+
+            //Se espera que el servicio se haya llamado al menos una vex
+            expect(doctorService.getDoctorById).toHaveBeenCalledWith(1);
+            //Se espera que el JSON de la respuesta sea el de doctors
+            expect(mockRes.json).toHaveBeenCalledWith(doctorRes);
+            //Se espera que el código de la respuesta sea 200
+            expect(mockRes.status).toHaveBeenCalledWith(200);
+        });
+
+        it('Deberia manejar el error correctamente y retornar 400', async () => {
+
+            (mockReq.params) = {id: "1"};
+            (doctorService.getDoctorById as jest.Mock).mockResolvedValue(null);
+
+            await doctorController.getDoctorById(mockReq, mockRes);
+
+            expect(doctorService.getDoctorById).toHaveBeenCalledWith(1);
+            expect(mockRes.json).toHaveBeenCalledWith({error: 'Fallo al obtener el doctor dado el id'});
+            expect(mockRes.status).toHaveBeenCalledWith(400);
+
+        });
+
+        it('Deberia retornar 400 si otro error ocurre', async () => {
+
+            //Definición de lo que se espera en la respuesta con jest
+            const error = new Error('Internal Server Error');
+
+            (mockReq.params) = {id: "1"};
+            (doctorService.getDoctorById as jest.Mock).mockRejectedValue(error);
+
+            await doctorController.getDoctorById(mockReq, mockRes);
+
+            expect(doctorService.getDoctorById).toHaveBeenCalledWith(1);
+            expect(mockRes.json).toHaveBeenCalledWith({error: 'Fallo al obtener el doctor dado el id'});
             expect(mockRes.status).toHaveBeenCalledWith(400);
 
         });

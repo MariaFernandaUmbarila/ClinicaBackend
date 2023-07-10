@@ -7,6 +7,13 @@ class DoctorGetAllError extends Error{
     }
 }
 
+class DoctorGetByIdError extends Error{
+    constructor(){
+        super("Fallo al obtener el doctor dado el id");
+        this.name = 'DoctorGetByIdError';
+    }
+}
+
 class DoctorCreateError extends Error{
     constructor(){
         super("Fallo al obtener la lista de cotores");
@@ -14,4 +21,4 @@ class DoctorCreateError extends Error{
     }
 }
 
-export {DoctorCreateError, DoctorGetAllError};
+export {DoctorCreateError, DoctorGetAllError, DoctorGetByIdError};
