@@ -1,6 +1,6 @@
-import { DoctorRepository } from './../api/components/doctores/repository';
-import { Doctor, DoctorReq } from './../api/components/doctores/model';
-import { DoctorServiceImpl } from './../api/components/doctores/service';
+import { DoctorRepository } from '../api/components/doctores/repository';
+import { Doctor, DoctorReq } from '../api/components/doctores/model';
+import { DoctorServiceImpl } from '../api/components/doctores/service';
 
 //El servicio no recibe request ni response
 
@@ -13,6 +13,7 @@ describe('DoctorService', () => {
     beforeEach (() => {
         doctorRepository= {
             getAllDoctors: jest.fn(),
+            getDoctorById: jest.fn(),
             createDoctor: jest.fn()
         };
         doctorService= new DoctorServiceImpl(doctorRepository);
@@ -26,10 +27,10 @@ describe('DoctorService', () => {
             //Instanciacion del modelo a usar
             const doctors:Doctor[] = [{
                 doct_id: 1, 
-                doct_nombre: 'Cristina',
-                doct_apellido: 'Molinos', 
-                doct_especialidad: 'Pediatria',
-                doct_consultorio: '604'
+                doct_nombre: 'Tatiana',
+                doct_apellido: 'Jaramillo', 
+                doct_especialidad: 'Anestesiología',
+                doct_consultorio: '309'
             }];
 
             //Definición de la respuesta que se espera con jest
@@ -54,6 +55,62 @@ describe('DoctorService', () => {
 
             expect(doctorRepository.getAllDoctors).toHaveBeenCalled();
             expect(result).toEqual([]);
+
+        });
+    });
+
+    describe('getDoctorById', () => {
+
+        //Definición de la prueba para getAllDoctors
+        it('Deberia obtener el doctor por id', async () => {
+
+            const doctorId = 1;
+            //Instanciacion del modelo a usar
+            const doctor:Doctor = {
+                doct_id: doctorId, 
+                doct_nombre: 'Tatiana',
+                doct_apellido: 'Jaramillo', 
+                doct_especialidad: 'Anestesiología',
+                doct_consultorio: '309'
+            };            
+
+            //Definición de la respuesta que se espera con jest
+            (doctorRepository.getDoctorById as jest.Mock).mockResolvedValue(doctor);
+            //Llamado a la función del servicio
+            const result = await doctorService.getDoctorById(doctorId);
+
+            //Se espera que el servicio se haya llamado al menos una vex
+            expect(doctorRepository.getDoctorById).toHaveBeenCalledWith(doctorId);
+            //Se espera que el resultado de la respuesta sea el de doctors
+            expect(result).toEqual(doctor);
+
+        });
+
+        //Definición de la prueba de error
+        it('Deberia retornar un arreglo vacio porque el id no existe', async () => {
+
+            const doctorId = 5;
+
+            //Definición de lo que se espera en la respuesta con jest
+            (doctorRepository.getDoctorById as jest.Mock).mockResolvedValue(null);
+
+            const result = await doctorService.getDoctorById(doctorId);
+
+            expect(doctorRepository.getDoctorById).toHaveBeenCalledWith(doctorId);
+            expect(result).toBeNull();
+
+        });
+
+        it('Deberia lanzar un error si algo diferente falla', async () => {
+
+            const doctorId = 1;
+            const error = new Error('Database error');
+
+            //Definición de lo que se espera en la respuesta con jest
+            (doctorRepository.getDoctorById as jest.Mock).mockRejectedValue(error);
+            
+            await expect(doctorService.getDoctorById(doctorId)).rejects.toThrowError(error);
+            expect(doctorRepository.getDoctorById).toHaveBeenCalledWith(doctorId);
 
         });
     });
@@ -87,7 +144,7 @@ describe('DoctorService', () => {
             const result = await doctorService.createDoctor(doctReq);
 
             //Se espera que el servicio se haya llamado al menos una vex
-            expect(doctorRepository.getAllDoctors).toHaveBeenCalledWith(doctReq);
+            expect(doctorRepository.createDoctor).toHaveBeenCalledWith(doctReq);
             //Se espera que el resultado de la respuesta sea el de doctors
             expect(result).toEqual(doctorRes);
 

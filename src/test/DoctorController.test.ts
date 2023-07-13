@@ -15,8 +15,8 @@ describe('DoctorController', () => {
     beforeEach (() => {
         doctorService = {
             getAllDoctors: jest.fn(),
-            createDoctor: jest.fn(),
-            getDoctorById: jest.fn()
+            getDoctorById: jest.fn(),
+            createDoctor: jest.fn()            
         };
         doctorController = new DoctorControllerImpl(doctorService);
         mockRes.status = jest.fn().mockReturnThis();
@@ -117,7 +117,7 @@ describe('DoctorController', () => {
             await doctorController.getDoctorById(mockReq, mockRes);
 
             expect(doctorService.getDoctorById).toHaveBeenCalledWith(1);
-            expect(mockRes.json).toHaveBeenCalledWith({error: 'Fallo al obtener el doctor dado el id'});
+            expect(mockRes.json).toHaveBeenCalledWith({error: 'Error trayendo doctor por id'});
             expect(mockRes.status).toHaveBeenCalledWith(400);
 
         });
