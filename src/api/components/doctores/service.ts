@@ -1,4 +1,4 @@
-import { DoctorCreateError, DoctorGetByIdError } from '../../../config/custErrors';
+import { DoctorCreateError, DoctorGetByIdError, DoctorUpdateError } from '../../../config/custErrors';
 import { Doctor, DoctorReq } from './model';
 import { DoctorRepository } from './repository';
 
@@ -7,9 +7,10 @@ export interface DoctorService{
     getAllDoctors(): Promise<Doctor[]>;
     getDoctorById(id:number): Promise<Doctor>;
     createDoctor(doctorReq:DoctorReq): Promise<Doctor>;
+    updateDoctorById(id:number, updates:Partial<DoctorReq>): Promise<Doctor>;
 };
 
-
+//Implementación de las clases exportadas arriba
 export class DoctorServiceImpl implements DoctorService{
 
     private doctorRepository:DoctorRepository;
@@ -36,8 +37,26 @@ export class DoctorServiceImpl implements DoctorService{
             return this.doctorRepository.createDoctor(doctorReq);
         } catch (error){
             throw new DoctorCreateError();
+        }        
+    }
+
+    public async updateDoctorById(id:number, updates:Partial<DoctorReq>): Promise<Doctor>{
+        try{
+            //Primero se verifica que el doctor existe
+            const existeDoctor = this.doctorRepository.getDoctorById(id);
+            if(!existeDoctor){
+                throw new DoctorGetByIdError();
+            }
+            //Combina la información venida de ambos objetos
+            const updateDoctor = {...existeDoctor, ...updates};
+
+            //Hace la actualización desde el repositorio
+            this.doctorRepository.updateDoctorById(id, updates);
+            return updateDoctor;
+            
+        } catch (error){
+            throw new DoctorUpdateError();
         }
-        
     }
 
 };

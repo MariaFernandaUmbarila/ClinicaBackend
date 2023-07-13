@@ -1,7 +1,9 @@
 import { Doctor, DoctorReq } from './model';
 import { db } from '../../../config/database';
-import { DoctorCreateError, DoctorGetAllError, DoctorGetByIdError } from '../../../config/custErrors';
+import { DoctorCreateError, DoctorGetAllError, DoctorGetByIdError, DoctorUpdateError } from '../../../config/custErrors';
 
+
+//No implementa ninguna otra clase, es como una clase 'raiz'
 export class DoctorRepository{
 
     //Lista todos los doctores
@@ -23,10 +25,9 @@ export class DoctorRepository{
         }catch(error){
             throw new DoctorGetByIdError();
         }
-
     }
 
-    //Retorna una promesa por lo que es una función async
+    //Crea un doctor en base de datos
     public async createDoctor(doctor:DoctorReq): Promise<Doctor>{
         try{
             //Retorna una variable de tipo any
@@ -37,5 +38,13 @@ export class DoctorRepository{
         }
     }
 
-    
+    //Actualiza un doctor en base de datos, se pasa la información parcial del doctor
+    public async updateDoctorById(id:number, updates:Partial<DoctorReq>): Promise<void>{
+        try{
+            //Búsqueda del doctor por id, es manejado como objeto
+            await db('doctores').where({doct_id: id}).update(updates);
+        }catch(error){
+            throw new DoctorUpdateError();
+        }
+    }    
 }

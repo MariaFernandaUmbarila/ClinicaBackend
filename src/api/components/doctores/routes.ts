@@ -12,6 +12,7 @@ const doctController:DoctorController = new DoctorControllerImpl(doctorService )
 router.get('/list_all', doctController.getAllDoctors.bind(doctController));
 router.post('/create',  doctController.createDoctor.bind(doctController));
 router.get('/:id',  doctController.getDoctorById.bind(doctController));
+router.put('/actualizar/:id',  doctController.updateDoctorById.bind(doctController));
 
 //Exportación de la variable
 export default router;

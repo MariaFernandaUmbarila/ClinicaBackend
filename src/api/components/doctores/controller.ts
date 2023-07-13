@@ -1,14 +1,16 @@
 import { Request, Response } from 'express';
 import logger from '../../../utils/logger';
 import { DoctorService } from './service';
-import { DoctorGetByIdError } from '../../../config/custErrors';
+import { DoctorGetByIdError, DoctorUpdateError } from '../../../config/custErrors';
 
 export interface DoctorController{
     getAllDoctors(req:Request, res:Response): void;
     createDoctor(req:Request, res:Response): void;
     getDoctorById(req:Request, res:Response): void;
+    updateDoctorById(req:Request, res:Response): void;
 };
 
+//Implementación de los métodos exportados arriba
 export class DoctorControllerImpl implements DoctorController{
 
     //Instanciación del servicio en variable privada
@@ -66,5 +68,28 @@ export class DoctorControllerImpl implements DoctorController{
                 res.status(400).json({message: error.message});
             }
         );
+    }
+
+    public async updateDoctorById(req: Request, res: Response): Promise<void>{
+        try{
+            const id = parseInt(req.params.id);
+            //Se guarda el body de la petición recibida
+            const doctorReq = req.body;
+
+            const doctor = await this.doctorService.updateDoctorById(id, doctorReq);
+            if (doctor){
+                res.status(200).json(doctor);
+            }else{
+                throw new DoctorUpdateError();
+            }
+        }catch (error){
+            if(error instanceof DoctorGetByIdError){
+                res.status(400).json({error: error.message});
+            }else if(error instanceof DoctorUpdateError){
+                res.status(400).json({error: error.message});
+            }else{
+                res.status(400).json({error: "Error actualizando al doctor"});
+            }
+        }
     }
 };
