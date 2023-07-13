@@ -1,6 +1,6 @@
 import { Doctor, DoctorReq } from './model';
 import { db } from '../../../config/database';
-import { DoctorCreateError, DoctorGetAllError, DoctorGetByIdError, DoctorUpdateError } from '../../../config/custErrors';
+import { DoctorCreateError, DoctorDeleteError, DoctorGetAllError, DoctorGetByIdError, DoctorUpdateError } from '../../../config/customerrors';
 
 
 //No implementa ninguna otra clase, es como una clase 'raiz'
@@ -46,5 +46,15 @@ export class DoctorRepository{
         }catch(error){
             throw new DoctorUpdateError();
         }
-    }    
+    } 
+    
+    //Borra el registro en base de datos dado el id
+    public async deleteDoctorById(id:number): Promise<void>{
+        try{
+            //Búsqueda del doctor por id, es manejado como objeto
+            await db('doctores').where({doct_id: id}).del();
+        }catch(error){
+            throw new DoctorDeleteError();
+        }
+    } 
 }

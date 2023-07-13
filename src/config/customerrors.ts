@@ -28,9 +28,17 @@ class DoctorUpdateError extends Error{
     }
 }
 
+class DoctorDeleteError extends Error{
+    constructor(){
+        super("Fallo al borrar la informacion del doctor");
+        this.name = 'DoctorUpdateError';
+    }
+}
+
 export {
     DoctorCreateError, 
     DoctorGetAllError, 
     DoctorGetByIdError,
-    DoctorUpdateError
+    DoctorUpdateError,
+    DoctorDeleteError
 };

@@ -1,4 +1,4 @@
-import { DoctorCreateError, DoctorGetByIdError, DoctorUpdateError } from '../../../config/custErrors';
+import { DoctorCreateError, DoctorDeleteError, DoctorGetByIdError, DoctorUpdateError } from '../../../config/customerrors';
 import { Doctor, DoctorReq } from './model';
 import { DoctorRepository } from './repository';
 
@@ -8,6 +8,7 @@ export interface DoctorService{
     getDoctorById(id:number): Promise<Doctor>;
     createDoctor(doctorReq:DoctorReq): Promise<Doctor>;
     updateDoctorById(id:number, updates:Partial<DoctorReq>): Promise<Doctor>;
+    deleteDoctorById(id:number): Promise<void>;
 };
 
 //Implementación de las clases exportadas arriba
@@ -53,9 +54,23 @@ export class DoctorServiceImpl implements DoctorService{
             //Hace la actualización desde el repositorio
             this.doctorRepository.updateDoctorById(id, updates);
             return updateDoctor;
-            
+
         } catch (error){
             throw new DoctorUpdateError();
+        }
+    }
+
+    public async deleteDoctorById(id:number): Promise<void>{
+        try{
+
+            const existeDoctor = await this.doctorRepository.getDoctorById(id);
+            if(!existeDoctor){
+                throw new DoctorGetByIdError();
+            }
+            await this.doctorRepository.deleteDoctorById(id);
+            
+        }catch (error){
+            throw new DoctorDeleteError();
         }
     }
 

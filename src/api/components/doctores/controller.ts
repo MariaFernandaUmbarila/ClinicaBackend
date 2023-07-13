@@ -1,13 +1,14 @@
 import { Request, Response } from 'express';
 import logger from '../../../utils/logger';
 import { DoctorService } from './service';
-import { DoctorGetByIdError, DoctorUpdateError } from '../../../config/custErrors';
+import { DoctorDeleteError, DoctorGetByIdError, DoctorUpdateError } from '../../../config/customerrors';
 
 export interface DoctorController{
     getAllDoctors(req:Request, res:Response): void;
     createDoctor(req:Request, res:Response): void;
     getDoctorById(req:Request, res:Response): void;
     updateDoctorById(req:Request, res:Response): void;
+    deleteDoctorById(req:Request, res:Response): void;
 };
 
 //Implementación de los métodos exportados arriba
@@ -89,6 +90,20 @@ export class DoctorControllerImpl implements DoctorController{
                 res.status(400).json({error: error.message});
             }else{
                 res.status(400).json({error: "Error actualizando al doctor"});
+            }
+        }
+    }
+
+    public async deleteDoctorById(req: Request, res: Response): Promise<void>{
+        try{
+            const id = parseInt(req.params.id);
+            await this.doctorService.deleteDoctorById(id);
+            res.status(200).json({message: 'Doctor eliminado con exito'})
+        }catch (error){
+            if(error instanceof DoctorDeleteError){
+                res.status(400).json({error: error.message});
+            }else{
+                res.status(400).json({error: "Error eliminando doctor por id"});
             }
         }
     }
