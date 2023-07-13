@@ -14,7 +14,9 @@ describe('DoctorService', () => {
         doctorRepository= {
             getAllDoctors: jest.fn(),
             getDoctorById: jest.fn(),
-            createDoctor: jest.fn()
+            createDoctor: jest.fn(),
+            deleteDoctorById: jest.fn(),
+            updateDoctorById: jest.fn()
         };
         doctorService= new DoctorServiceImpl(doctorRepository);
     });

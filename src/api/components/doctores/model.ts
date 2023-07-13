@@ -7,6 +7,7 @@ export interface Doctor{
     doct_consultorio: string,
     doct_correo?: string,
     doct_createdAt?: Date
+    doct_updatedAt?: Date
 };
 
 //Modelo para las peticiones que se reciben

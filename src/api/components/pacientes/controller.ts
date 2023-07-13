@@ -1,12 +1,17 @@
 import { Request, Response } from 'express';
 import logger from '../../../utils/logger';
 import { PatientService } from './service';
+import { GetAllError, GetByIdError, UpdateError, DeleteError } from '../../../config/customerrors';
 
 export interface PatientController{
     getAllPatients(req:Request, res:Response): void;
     createPatient(req:Request, res:Response): void;
+    getPatientById(req:Request, res:Response): void;
+    updatePatientById(req:Request, res:Response): void;
+    deletePatientById(req:Request, res:Response): void;
 };
 
+//Implementación de los métodos exportados arriba
 export class PatientControllerImpl implements PatientController{
 
     //Instanciación del servicio en variable privada
@@ -17,16 +22,35 @@ export class PatientControllerImpl implements PatientController{
         this.patientService = patientService;
     }
 
-    //Lógica del endpoint
+    //Lógica del endpoint que es traída desde el servicio
     public async getAllPatients(req: Request, res: Response): Promise<void>{
 
         try{
             const patientslist = await this.patientService.getAllPatients();                
-            res.status(201).json(patientslist);
+            res.status(200).json(patientslist);
             
         }catch(error){
             logger.error(error);
-            res.status(400).json({message:error});
+            res.status(400).json({message:'Error trayendo pacientees'});
+        }
+    }
+
+    //En este endpoint se reciben path variables
+    public async getPatientById(req: Request, res: Response): Promise<void>{
+        try{
+            const id = parseInt(req.params.id);
+            const patient = await this.patientService.getPatientById(id);
+            if (patient){
+                res.status(200).json(patient);
+            }else{
+                throw new GetByIdError("Patient");
+            }
+        }catch (error){
+            if(error instanceof GetByIdError){
+                res.status(400).json({error: error.message});
+            }else{
+                res.status(400).json({error: "Error trayendo paciente por id"});
+            }
         }
     }
 
@@ -35,13 +59,52 @@ export class PatientControllerImpl implements PatientController{
         //Se guarda el body de la petición recibida
         const patientReq = req.body;
 
-        try{
-            this.patientService.createPatient(patientReq).then((patient) => {
+        this.patientService.createPatient(patientReq)
+        .then(
+            (patient) => {
                 res.status(201).json(patient);
-            });
-        }catch(error){
-            logger.error(error);
-            res.status(400).json({message:error});
+            },
+            (error) => {
+                logger.error(error);
+                res.status(400).json({message: error.message});
+            }
+        );
+    }
+
+    public async updatePatientById(req: Request, res: Response): Promise<void>{
+        try{
+            const id = parseInt(req.params.id);
+            //Se guarda el body de la petición recibida
+            const patientReq = req.body;
+
+            const patient = await this.patientService.updatePatientById(id, patientReq);
+            if (patient){
+                res.status(200).json(patient);
+            }else{
+                throw new UpdateError("Patient");
+            }
+        }catch (error){
+            if(error instanceof GetByIdError){
+                res.status(400).json({error: error.message});
+            }else if(error instanceof UpdateError){
+                res.status(400).json({error: error.message});
+            }else{
+                res.status(400).json({error: "Error actualizando al paciente"});
+            }
+        }
+    }
+
+    public async deletePatientById(req: Request, res: Response): Promise<void>{
+        try{
+            const id = parseInt(req.params.id);
+            await this.patientService.deletePatientById(id);
+            res.status(200).json({message: 'Paciente eliminado con exito'})
+        }catch (error){
+            if(error instanceof DeleteError){
+                res.status(400).json({error: error.message});
+            }else{
+                res.status(400).json({error: "Error eliminando paciente por id"});
+            }
         }
     }
 };

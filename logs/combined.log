@@ -64,3 +64,15 @@
 2023-07-13T15:56:43.114Z-info: Server is listening on port 3030
 2023-07-13T15:58:45.833Z-info: Server is listening on port 3030
 2023-07-13T16:23:43.754Z-info: Server is listening on port 3030
+2023-07-13T19:59:56.368Z-info: Server is listening on port 3030
+2023-07-13T20:07:38.964Z-error: Fallo al crear al paciente
+2023-07-13T20:07:58.098Z-info: Server is listening on port 3030
+2023-07-13T20:08:05.193Z-error: Fallo al crear al paciente
+2023-07-13T20:10:27.106Z-error: Fallo al crear al paciente
+2023-07-13T20:11:38.409Z-error: Fallo al crear al paciente
+2023-07-13T20:11:52.282Z-error: Fallo al crear al paciente
+2023-07-13T20:13:54.082Z-info: Server is listening on port 3030
+2023-07-13T20:19:57.203Z-info: Server is listening on port 3030
+2023-07-13T20:23:24.884Z-info: Server is listening on port 3030
+2023-07-13T20:30:32.278Z-error: Internal Server Error
+2023-07-13T20:30:32.289Z-error: Internal Server Error

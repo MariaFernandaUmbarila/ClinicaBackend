@@ -16,7 +16,9 @@ describe('DoctorController', () => {
         doctorService = {
             getAllDoctors: jest.fn(),
             getDoctorById: jest.fn(),
-            createDoctor: jest.fn()            
+            createDoctor: jest.fn() ,
+            deleteDoctorById: jest.fn(),
+            updateDoctorById: jest.fn()
         };
         doctorController = new DoctorControllerImpl(doctorService);
         mockRes.status = jest.fn().mockReturnThis();
