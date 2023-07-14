@@ -49,6 +49,11 @@ class GetAllError extends Error{
                 this.name = 'PatientGetAllError';
                 break; 
             } 
+            case "Appointment":{ 
+                super("Fallo al obtener la lista de citas");
+                this.name = 'AppointmentGetAllError';
+                break; 
+            } 
             default: { 
                 super("Fallo no identificado en obtener todos");
                 this.name = 'ErrorNotIdentifiedGetAll';
@@ -72,6 +77,11 @@ class GetByIdError extends Error{
                 this.name = 'PatientGetByIdError';
                 break; 
             } 
+            case "Appointment":{ 
+                super("Fallo al obtener la cita dado el id");
+                this.name = 'AppointmentByIdError';
+                break; 
+            }
             default: { 
                 super("Fallo no identificado en obtener por id");
                 this.name = 'ErrorNotIdentifiedGetById';
@@ -93,6 +103,11 @@ class CreateError extends Error{
             case "Patient":{ 
                 super("Fallo al crear al paciente");
                 this.name = 'PatientCreateError';
+                break; 
+            } 
+            case "Appointment":{ 
+                super("Fallo al crear la cita");
+                this.name = 'AppointmentCreateError';
                 break; 
             } 
             default: { 
@@ -117,6 +132,11 @@ class UpdateError extends Error{
                 super("Fallo al actualizar al paciente");
                 this.name = 'PatientUpdateError';
                 break; 
+            }
+            case "Appointment":{ 
+                super("Fallo al actualizar la cita");
+                this.name = 'AppointmentUpdateError';
+                break; 
             } 
             default: { 
                 super("Fallo no identificado en obtener actualizar");
@@ -139,6 +159,11 @@ class DeleteError extends Error{
             case "Patient":{ 
                 super("Fallo al borrar al paciente");
                 this.name = 'PatientDeleteError';
+                break; 
+            }
+            case "Apppointment":{ 
+                super("Fallo al borrar la cita");
+                this.name = 'AppointmentDeleteError';
                 break; 
             } 
             default: { 

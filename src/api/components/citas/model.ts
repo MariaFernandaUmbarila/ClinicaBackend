@@ -9,8 +9,8 @@ export interface Appointment {
 
 //Modelo para las peticiones que se reciben
 export interface AppointmentReq {
-    identificacion_paciente: string
-    especialidad: string
-    id_doctor: number
-    horario: string
+    cita_paci_identif: string
+    cita_especialidad: string
+    cita_doct_id: number
+    cita_horario: string
 }

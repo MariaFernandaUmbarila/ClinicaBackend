@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import logger from '../../../utils/logger';
 import { PatientService } from './service';
-import { GetAllError, GetByIdError, UpdateError, DeleteError } from '../../../config/customerrors';
+import { GetByIdError, UpdateError, DeleteError } from '../../../config/customerrors';
 
 export interface PatientController{
     getAllPatients(req:Request, res:Response): void;
