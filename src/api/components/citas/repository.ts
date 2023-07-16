@@ -1,4 +1,4 @@
-import { Appointment, AppointmentReq } from './model';
+import { Appointment, AppointmentReq, AppointmentResDB } from './model';
 import { db } from '../../../config/database';
 import { GetAllError, GetByIdError, UpdateError, CreateError, DeleteError } from '../../../config/customerrors';
 
@@ -17,7 +17,7 @@ export class AppointmentRepository{
     }
 
     //Lista la información de un doctor dado el id
-    public async getAppointmentById(id:number): Promise<Appointment>{
+    public async getAppointmentById(id:number): Promise<AppointmentResDB>{
         try{
             //Búsqueda del doctor por id, es manejado como objeto
             const appointment = await db('citas').where({cita_id: id}).first();
@@ -28,7 +28,7 @@ export class AppointmentRepository{
     }
 
     //Crea un doctor en base de datos
-    public async createAppointment(appointment:AppointmentReq): Promise<Appointment>{
+    public async createAppointment(appointment:AppointmentReq): Promise<AppointmentResDB>{
         try{
             //Retorna una variable de tipo any
             const [createdAppointment] = await db('citas').insert(appointment).returning('*');

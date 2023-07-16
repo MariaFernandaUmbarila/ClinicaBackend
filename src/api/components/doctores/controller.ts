@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import logger from '../../../utils/logger';
 import { DoctorService } from './service';
-import { DoctorDeleteError, DoctorGetByIdError, DoctorUpdateError } from '../../../config/customerrors';
+import { DoctorDeleteError, DoctorGetByIdError, DoctorUpdateError, DoctorCreateError } from '../../../config/customerrors';
 
 export interface DoctorController{
     getAllDoctors(req:Request, res:Response): void;
@@ -65,8 +65,11 @@ export class DoctorControllerImpl implements DoctorController{
                 res.status(201).json(doctor);
             },
             (error) => {
-                logger.error(error);
-                res.status(400).json({message: error.message});
+                if (error instanceof DoctorCreateError){
+                    res.status(400).json({error: error.message});
+                } else {
+                    res.status(400).json({error: "Internal Server Error"});                   
+                }
             }
         );
     }
