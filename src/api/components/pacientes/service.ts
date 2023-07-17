@@ -1,4 +1,4 @@
-import { GetByIdError, CreateError, UpdateError, DeleteError } from '../../../config/customerrors';
+import { GetByIdError, CreateError, UpdateError, DeleteError } from '../../../utils/customerrors';
 import { Patient, PatientReq } from './model';
 import { PatientRepository } from './repository';
 

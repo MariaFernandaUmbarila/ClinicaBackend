@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "875ee185-b620-4c02-a389-b562e82de9de",
+		"_postman_id": "fdb3687b-6731-494d-967b-8c3792f35459",
 		"name": "UDistrital",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "24798203"
+		"_exporter_id": "22914286"
 	},
 	"item": [
 		{
@@ -109,6 +109,36 @@
 			"response": []
 		},
 		{
+			"name": "Crear cita",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cita_paci_identif\": \"123744356\",\r\n    \"cita_especialidad\": \"Medicina general\",\r\n    \"cita_doct_id\": 2,\r\n    \"cita_horario\": \"07:30\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3030/api/v1/citas/create",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"v1",
+						"citas",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Obtener doctor por id",
 			"request": {
 				"method": "GET",
@@ -144,6 +174,27 @@
 						"api",
 						"v1",
 						"pacientes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener cita por id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3030/api/v1/citas/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3030",
+					"path": [
+						"api",
+						"v1",
+						"citas",
 						"1"
 					]
 				}

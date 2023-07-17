@@ -1,6 +1,6 @@
 import { Patient, PatientReq } from './model';
 import { db } from '../../../config/database';
-import { GetAllError, GetByIdError, CreateError, UpdateError, DeleteError } from '../../../config/customerrors';
+import { GetAllError, GetByIdError, CreateError, UpdateError, DeleteError } from '../../../utils/customerrors';
 
 
 //No implementa ninguna otra clase, es como una clase 'raiz'

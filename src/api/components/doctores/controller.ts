@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import logger from '../../../utils/logger';
 import { DoctorService } from './service';
-import { DoctorDeleteError, DoctorGetByIdError, DoctorUpdateError, DoctorCreateError } from '../../../config/customerrors';
+import { DoctorDeleteError, DoctorGetByIdError, DoctorUpdateError, DoctorCreateError } from '../../../utils/customerrors';
 
 export interface DoctorController{
     getAllDoctors(req:Request, res:Response): void;

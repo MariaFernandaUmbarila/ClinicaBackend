@@ -1,4 +1,4 @@
-import { GetByIdError, DeleteError, CreateError, UpdateError } from '../../../config/customerrors';
+import { GetByIdError, DeleteError, CreateError, UpdateError } from '../../../utils/customerrors';
 import { Doctor } from '../doctores/model';
 import { DoctorRepository } from '../doctores/repository';
 import { Appointment, AppointmentReq, AppointmentResDB } from './model';

@@ -1,4 +1,4 @@
-import { DoctorCreateError, DoctorDeleteError, DoctorGetByIdError, DoctorUpdateError } from '../../../config/customerrors';
+import { DoctorCreateError, DoctorDeleteError, DoctorGetByIdError, DoctorUpdateError } from '../../../utils/customerrors';
 import { Doctor, DoctorReq } from './model';
 import { DoctorRepository } from './repository';
 

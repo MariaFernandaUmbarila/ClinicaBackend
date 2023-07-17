@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import logger from '../../../utils/logger';
 import { AppointmentService } from './service';
-import { GetAllError, GetByIdError, UpdateError, CreateError, DeleteError } from '../../../config/customerrors';
+import { GetAllError, GetByIdError, UpdateError, CreateError, DeleteError } from '../../../utils/customerrors';
 
 export interface AppointmentController{
     getAllAppointments(req:Request, res:Response): void;

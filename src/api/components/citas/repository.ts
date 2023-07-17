@@ -1,6 +1,6 @@
 import { Appointment, AppointmentReq, AppointmentResDB } from './model';
 import { db } from '../../../config/database';
-import { GetAllError, GetByIdError, UpdateError, CreateError, DeleteError } from '../../../config/customerrors';
+import { GetAllError, GetByIdError, UpdateError, CreateError, DeleteError } from '../../../utils/customerrors';
 
 
 //No implementa ninguna otra clase, es como una clase 'raiz'
