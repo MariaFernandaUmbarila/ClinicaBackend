@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import logger from '../../../utils/logger';
 import { DoctorService } from './service';
 import { DoctorDeleteError, DoctorGetByIdError, DoctorUpdateError, DoctorCreateError } from '../../../utils/customerrors';
+import { createDoctorSchema } from './validations/doctor.validations';
 
 export interface DoctorController{
     getAllDoctors(req:Request, res:Response): void;
@@ -59,19 +60,30 @@ export class DoctorControllerImpl implements DoctorController{
         //Se guarda el body de la petición recibida
         const doctorReq = req.body;
 
-        this.doctorService.createDoctor(doctorReq)
-        .then(
-            (doctor) => {
-                res.status(201).json(doctor);
-            },
-            (error) => {
-                if (error instanceof DoctorCreateError){
-                    res.status(400).json({error: error.message});
-                } else {
-                    res.status(400).json({error: "Internal Server Error"});                   
+        //Se hace validación de los campos con Joi
+        const {error, value} = createDoctorSchema.validate(doctorReq);
+
+        //Si la validación dio error se muestra
+        if(error){
+            res.status(400).json({message: error.details[0].message});
+        }else{
+
+            //Si no hay error se envía lo guardado en value
+            this.doctorService.createDoctor(value)
+            .then(
+                (doctor) => {
+                    res.status(201).json(doctor);
+                },
+                (error) => {
+                    if (error instanceof DoctorCreateError){
+                        res.status(400).json({error: error.message});
+                    } else {
+                        res.status(400).json({error: "Internal Server Error"});                   
+                    }
                 }
-            }
-        );
+            );
+        }
+        
     }
 
     public async updateDoctorById(req: Request, res: Response): Promise<void>{
