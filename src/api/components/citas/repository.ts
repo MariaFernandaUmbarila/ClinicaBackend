@@ -6,13 +6,16 @@ import { GetAllError, GetByIdError, UpdateError, CreateError, DeleteError } from
 //No implementa ninguna otra clase, es como una clase 'raiz'
 export class AppointmentRepository{
 
+    //Tipo para los errores customizables
+    private type = "Appointment";
+
     //Lista todos los doctores
     public async getAllAppointments(): Promise<Appointment[]>{
         try{
             //Retorna una variable de tipo any
             return db.select('*').from('citas');
         }catch(error){
-            throw new GetAllError("Appointment");
+            throw new GetAllError(this.type);
         }
     }
 
@@ -23,7 +26,7 @@ export class AppointmentRepository{
             const appointment = await db('citas').where({cita_id: id}).first();
             return appointment;
         }catch(error){
-            throw new GetByIdError("Appointment");
+            throw new GetByIdError(this.type);
         }
     }
 
@@ -34,17 +37,17 @@ export class AppointmentRepository{
             const [createdAppointment] = await db('citas').insert(appointment).returning('*');
             return createdAppointment;
         }catch(error){
-            throw new CreateError("Appointment");
+            throw new CreateError(this.type);
         }
     }
 
     //Actualiza una cita en base de datos, se pasa la información parcial de la cita
     public async updateAppointmentById(id:number, updates:Partial<AppointmentReq>): Promise<void>{
         try{
-            //Búsqueda del doctor por id, es manejado como objeto
+            //Búsqueda de la cita id, es manejado como objeto
             await db('citas').where({cita_id: id}).update(updates);
         }catch(error){
-            throw new UpdateError("Appointment");
+            throw new UpdateError(this.type);
         }
     } 
     
@@ -54,7 +57,7 @@ export class AppointmentRepository{
             //Búsqueda de la cita por id, es manejado como objeto
             await db('citas').where({cita_id: id}).del();
         }catch(error){
-            throw new DeleteError("Appointment");
+            throw new DeleteError(this.type);
         }
     } 
 }

@@ -14,6 +14,9 @@ export interface PatientController{
 //Implementación de los métodos exportados arriba
 export class PatientControllerImpl implements PatientController{
 
+    //Tipo para los errores customizables
+    private type = "Patient";
+
     //Instanciación del servicio en variable privada
     private patientService:PatientService;
 
@@ -43,7 +46,7 @@ export class PatientControllerImpl implements PatientController{
             if (patient){
                 res.status(200).json(patient);
             }else{
-                throw new GetByIdError("Patient");
+                throw new GetByIdError(this.type);
             }
         }catch (error){
             if(error instanceof GetByIdError){
@@ -81,7 +84,7 @@ export class PatientControllerImpl implements PatientController{
             if (patient){
                 res.status(200).json(patient);
             }else{
-                throw new UpdateError("Patient");
+                throw new UpdateError(this.type);
             }
         }catch (error){
             if(error instanceof GetByIdError){

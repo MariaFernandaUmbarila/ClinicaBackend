@@ -14,7 +14,7 @@ const appoController:AppointmentController = new AppointmentControllerImpl(appoi
 router.get('/list_all', appoController.getAllAppointments.bind(appoController));
 router.post('/create',  appoController.createAppointment.bind(appoController));
 router.get('/:id',  appoController.getAppointmentById.bind(appoController));
-//router.put('/actualizar/:id',  appoController.updateAppointmentById.bind(appoController));
+router.put('/actualizar/:id',  appoController.updateAppointmentById.bind(appoController));
 router.delete('/eliminar/:id',  appoController.deleteAppointmentById.bind(appoController));
 
 //Exportación de la variable

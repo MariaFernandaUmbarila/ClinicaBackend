@@ -15,11 +15,14 @@ export interface AppointmentReq {
     cita_horario: string
 }
 
+
+//Modelo de la respuesta desde base de datos
 export interface AppointmentResDB {
     cita_id: number
     cita_horario: string
     cita_especialidad: string
     cita_doct_id: number
+    cita_doctor: string
     cita_paci_identif: string
     cita_consultorio: string
     cita_created_at: string

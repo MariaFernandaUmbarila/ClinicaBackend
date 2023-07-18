@@ -6,13 +6,16 @@ import { GetAllError, GetByIdError, CreateError, UpdateError, DeleteError } from
 //No implementa ninguna otra clase, es como una clase 'raiz'
 export class PatientRepository{
 
+    //Tipo para los errores customizables
+    private type = "Patient";
+
     //Lista todos los pacientees
     public async getAllPatients(): Promise<Patient[]>{
         try{
             //Retorna una variable de tipo any
             return db.select('*').from('pacientes');
         }catch(error){
-            throw new GetAllError("Patient");
+            throw new GetAllError(this.type);
         }
     }
 
@@ -23,7 +26,7 @@ export class PatientRepository{
             const patient = await db('pacientes').where({paci_id: id}).first();
             return patient;
         }catch(error){
-            throw new GetByIdError("Patient");
+            throw new GetByIdError(this.type);
         }
     }
 
@@ -34,7 +37,7 @@ export class PatientRepository{
             const [createdPatient] = await db('pacientes').insert(patient).returning('*');
             return createdPatient;
         }catch(error){
-            throw new CreateError("Patient");
+            throw new CreateError(this.type);
         }
     }
 
@@ -44,7 +47,7 @@ export class PatientRepository{
             //Búsqueda del paciente por id, es manejado como objeto
             await db('pacientes').where({paci_id: id}).update(updates);
         }catch(error){
-            throw new UpdateError("Patient");
+            throw new UpdateError(this.type);
         }
     } 
     
@@ -54,7 +57,7 @@ export class PatientRepository{
             //Búsqueda del paciente por id, es manejado como objeto
             await db('pacientes').where({paci_id: id}).del();
         }catch(error){
-            throw new DeleteError("Patient");
+            throw new DeleteError(this.type);
         }
     } 
 }

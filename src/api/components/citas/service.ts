@@ -9,7 +9,7 @@ export interface AppointmentService{
     getAllAppointments(): Promise<Appointment[]>;
     getAppointmentById(id:number): Promise<Appointment>;
     createAppointment(appointmentReq:AppointmentReq): Promise<Appointment>;
-    //updateAppointmentById(id:number, updates:Partial<AppointmentReq>): Promise<Appointment>;
+    updateAppointmentById(id:number, updates:Partial<AppointmentReq>): Promise<Appointment>;
     deleteAppointmentById(id:number): Promise<void>;
 };
 
@@ -18,6 +18,9 @@ export class AppointmentServiceImpl implements AppointmentService{
 
     private appointmentRepository:AppointmentRepository;
     private doctorRepository:DoctorRepository;
+
+    //Tipo para los errores customizables
+    private type = "Appointment";
 
     constructor(appointmentRepository:AppointmentRepository, doctorRepository:DoctorRepository){
         this.appointmentRepository = appointmentRepository;
@@ -50,16 +53,16 @@ export class AppointmentServiceImpl implements AppointmentService{
             return appointmentData;
     
         } catch (error){
-            throw new CreateError("Appointment");
+            throw new CreateError(this.type);
         }        
     }
 
-    /* public async updateAppointmentById(id:number, updates:Partial<AppointmentReq>): Promise<Appointment>{
+    public async updateAppointmentById(id:number, updates:Partial<AppointmentReq>): Promise<Appointment>{
         try{
             //Primero se verifica que la cita existe
             const existeCita = this.appointmentRepository.getAppointmentById(id);
             if(!existeCita){
-                throw new GetByIdError("Appointment");
+                throw new GetByIdError(this.type);
             }
             //Combina la información venida de ambos objetos
             const updateAppointment = {...existeCita, ...updates};
@@ -69,21 +72,21 @@ export class AppointmentServiceImpl implements AppointmentService{
             return updateAppointment;
 
         } catch (error){
-            throw new UpdateError("Appointment");
+            throw new UpdateError(this.type);
         }
-    } */
+    }
 
     public async deleteAppointmentById(id:number): Promise<void>{
         try{
 
             const existeCita = await this.appointmentRepository.getAppointmentById(id);
             if(!existeCita){
-                throw new GetByIdError("Appointment");
+                throw new GetByIdError(this.type);
             }
             await this.appointmentRepository.deleteAppointmentById(id);
             
         }catch (error){
-            throw new DeleteError("Appointment");
+            throw new DeleteError(this.type);
         }
     }
 

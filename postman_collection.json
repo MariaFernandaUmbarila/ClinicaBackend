@@ -1,311 +1,400 @@
 {
 	"info": {
-		"_postman_id": "fdb3687b-6731-494d-967b-8c3792f35459",
+		"_postman_id": "721a2b7a-7c12-4270-a873-a685a0c3e4ea",
 		"name": "UDistrital",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "22914286"
+		"_exporter_id": "24798203"
 	},
 	"item": [
 		{
-			"name": "Obtener lista de doctores",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:3030/api/v1/doctores/list_all",
-					"host": [
-						"localhost"
-					],
-					"port": "3030",
-					"path": [
-						"api",
-						"v1",
-						"doctores",
-						"list_all"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Obtener lista de pacientes",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:3030/api/v1/pacientes/list_all",
-					"host": [
-						"localhost"
-					],
-					"port": "3030",
-					"path": [
-						"api",
-						"v1",
-						"pacientes",
-						"list_all"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Crear doctor",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"doct_id\": 2, \r\n    \"doct_nombre\": \"Roberta\",\r\n    \"doct_apellido\": \"Salazar\", \r\n    \"doct_especialidad\": \"Medicina general\",\r\n    \"doct_consultorio\": \"404\",\r\n    \"doct_correo\": \"rsalazar@gmail.com\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Doctores",
+			"item": [
+				{
+					"name": "Obtener lista de doctores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3030/api/v1/doctores/list_all",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"api",
+								"v1",
+								"doctores",
+								"list_all"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "localhost:3030/api/v1/doctores/create",
-					"host": [
-						"localhost"
-					],
-					"port": "3030",
-					"path": [
-						"api",
-						"v1",
-						"doctores",
-						"create"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Crear paciente",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"paci_nombre\": \"Carlos\",\r\n    \"paci_apellido\": \"Carranza\",\r\n    \"paci_identif\": \"123744356\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Obtener doctor por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3030/api/v1/doctores/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"api",
+								"v1",
+								"doctores",
+								"1"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "localhost:3030/api/v1/pacientes/create",
-					"host": [
-						"localhost"
-					],
-					"port": "3030",
-					"path": [
-						"api",
-						"v1",
-						"pacientes",
-						"create"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Crear cita",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"cita_paci_identif\": \"123744356\",\r\n    \"cita_especialidad\": \"Medicina general\",\r\n    \"cita_doct_id\": 2,\r\n    \"cita_horario\": \"07:30\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Eliminar doctor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3030/api/v1/doctores/eliminar/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"api",
+								"v1",
+								"doctores",
+								"eliminar",
+								"2"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "localhost:3030/api/v1/citas/create",
-					"host": [
-						"localhost"
-					],
-					"port": "3030",
-					"path": [
-						"api",
-						"v1",
-						"citas",
-						"create"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Obtener doctor por id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:3030/api/v1/doctores/1",
-					"host": [
-						"localhost"
-					],
-					"port": "3030",
-					"path": [
-						"api",
-						"v1",
-						"doctores",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Obtener paciente por id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:3030/api/v1/pacientes/1",
-					"host": [
-						"localhost"
-					],
-					"port": "3030",
-					"path": [
-						"api",
-						"v1",
-						"pacientes",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Obtener cita por id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:3030/api/v1/citas/1",
-					"host": [
-						"localhost"
-					],
-					"port": "3030",
-					"path": [
-						"api",
-						"v1",
-						"citas",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Actualizar doctor",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"doct_apellido\": \"Gonzalez\",\r\n    \"doct_especialidad\": \"Anestesiología\",\r\n    \"doct_consultorio\": \"609\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Crear doctor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"doct_id\": 2, \r\n    \"doct_nombre\": \"Roberta\",\r\n    \"doct_apellido\": \"Salazar\", \r\n    \"doct_especialidad\": \"Medicina general\",\r\n    \"doct_consultorio\": \"404\",\r\n    \"doct_correo\": \"rsalazar@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/api/v1/doctores/create",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"api",
+								"v1",
+								"doctores",
+								"create"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "localhost:3030/api/v1/doctores/actualizar/1",
-					"host": [
-						"localhost"
-					],
-					"port": "3030",
-					"path": [
-						"api",
-						"v1",
-						"doctores",
-						"actualizar",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Actualizar paciente",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"paci_nombre\": \"Josefina\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Actualizar doctor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"doct_apellido\": \"Gonzalez\",\r\n    \"doct_especialidad\": \"Anestesiología\",\r\n    \"doct_consultorio\": \"609\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/api/v1/doctores/actualizar/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"api",
+								"v1",
+								"doctores",
+								"actualizar",
+								"1"
+							]
 						}
-					}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pacientes",
+			"item": [
+				{
+					"name": "Obtener lista de pacientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3030/api/v1/pacientes/list_all",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"api",
+								"v1",
+								"pacientes",
+								"list_all"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "localhost:3030/api/v1/pacientes/actualizar/1",
-					"host": [
-						"localhost"
-					],
-					"port": "3030",
-					"path": [
-						"api",
-						"v1",
-						"pacientes",
-						"actualizar",
-						"1"
-					]
+				{
+					"name": "Crear paciente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"paci_nombre\": \"Carlos\",\r\n    \"paci_apellido\": \"Carranza\",\r\n    \"paci_identif\": \"123744356\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/api/v1/pacientes/create",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"api",
+								"v1",
+								"pacientes",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener paciente por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3030/api/v1/pacientes/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"api",
+								"v1",
+								"pacientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar paciente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"paci_nombre\": \"Josefina\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/api/v1/pacientes/actualizar/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"api",
+								"v1",
+								"pacientes",
+								"actualizar",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar paciente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3030/api/v1/pacientes/eliminar/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"api",
+								"v1",
+								"pacientes",
+								"eliminar",
+								"2"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Eliminar doctor",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "localhost:3030/api/v1/doctores/eliminar/2",
-					"host": [
-						"localhost"
-					],
-					"port": "3030",
-					"path": [
-						"api",
-						"v1",
-						"doctores",
-						"eliminar",
-						"2"
-					]
+			"name": "Citas",
+			"item": [
+				{
+					"name": "Crear cita",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cita_paci_identif\": \"123744356\",\r\n    \"cita_especialidad\": \"Anestesiología\",\r\n    \"cita_doct_id\": 1,\r\n    \"cita_horario\": \"07:30\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/api/v1/citas/create",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"api",
+								"v1",
+								"citas",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener cita por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3030/api/v1/citas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"api",
+								"v1",
+								"citas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener lista de citas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3030/api/v1/citas/list_all",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"api",
+								"v1",
+								"citas",
+								"list_all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar cita",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cita_horario\": \"09:30\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3030/api/v1/citas/actualizar/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"api",
+								"v1",
+								"citas",
+								"actualizar",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3030/api/v1/doctores/eliminar/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"api",
+								"v1",
+								"doctores",
+								"eliminar",
+								"2"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "Eliminar paciente",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "localhost:3030/api/v1/pacientes/eliminar/2",
-					"host": [
-						"localhost"
-					],
-					"port": "3030",
-					"path": [
-						"api",
-						"v1",
-						"pacientes",
-						"eliminar",
-						"2"
-					]
-				}
-			},
-			"response": []
+			]
 		}
 	]
 }

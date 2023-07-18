@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 import logger from '../../../utils/logger';
 import { AppointmentService } from './service';
-import { GetAllError, GetByIdError, UpdateError, CreateError, DeleteError } from '../../../utils/customerrors';
+import { GetByIdError, UpdateError, CreateError, DeleteError } from '../../../utils/customerrors';
 
 export interface AppointmentController{
     getAllAppointments(req:Request, res:Response): void;
     createAppointment(req:Request, res:Response): void;
     getAppointmentById(req:Request, res:Response): void;
-    //updateAppointmentById(req:Request, res:Response): void;
+    updateAppointmentById(req:Request, res:Response): void;
     deleteAppointmentById(req:Request, res:Response): void;
 };
 
@@ -16,6 +16,8 @@ export class AppointmentControllerImpl implements AppointmentController{
 
     //Instanciación del servicio en variable privada
     private appointmentService:AppointmentService;
+    //Tipo para los errores customizables
+    private type = "Appointment";
 
     //Constructor
     constructor(appointmentService:AppointmentService){
@@ -43,7 +45,7 @@ export class AppointmentControllerImpl implements AppointmentController{
             if (appointment){
                 res.status(200).json(appointment);
             }else{
-                throw new GetByIdError("Appointment");
+                throw new GetByIdError(this.type);
             }
         }catch (error){
             if(error instanceof GetByIdError){
@@ -74,7 +76,7 @@ export class AppointmentControllerImpl implements AppointmentController{
         );
     }
 
-    /* public async updateAppointmentById(req: Request, res: Response): Promise<void>{
+    public async updateAppointmentById(req: Request, res: Response): Promise<void>{
         try{
             const id = parseInt(req.params.id);
             //Se guarda el body de la petición recibida
@@ -84,7 +86,7 @@ export class AppointmentControllerImpl implements AppointmentController{
             if (appointment){
                 res.status(200).json(appointment);
             }else{
-                throw new UpdateError("Appointment");
+                throw new UpdateError(this.type);
             }
         }catch (error){
             if(error instanceof GetByIdError){
@@ -95,7 +97,7 @@ export class AppointmentControllerImpl implements AppointmentController{
                 res.status(400).json({error: "Error actualizando la cita"});
             }
         }
-    } */
+    }
 
     public async deleteAppointmentById(req: Request, res: Response): Promise<void>{
         try{

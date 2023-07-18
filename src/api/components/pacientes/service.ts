@@ -15,6 +15,8 @@ export interface PatientService{
 export class PatientServiceImpl implements PatientService{
 
     private patientRepository:PatientRepository;
+    //Tipo para los errores customizables
+    private type = "Patient";
 
     constructor(patientRepository:PatientRepository){
         this.patientRepository = patientRepository;
@@ -29,7 +31,7 @@ export class PatientServiceImpl implements PatientService{
         try{
             return this.patientRepository.getPatientById(id);
         }catch (error){
-            throw new GetByIdError("Patient");
+            throw new GetByIdError(this.type);
         }
     }
 
@@ -37,7 +39,7 @@ export class PatientServiceImpl implements PatientService{
         try{
             return this.patientRepository.createPatient(patientReq);
         } catch (error){
-            throw new CreateError("Patient");
+            throw new CreateError(this.type);
         }        
     }
 
@@ -46,7 +48,7 @@ export class PatientServiceImpl implements PatientService{
             //Primero se verifica que el paciente existe
             const existePaciente = this.patientRepository.getPatientById(id);
             if(!existePaciente){
-                throw new GetByIdError("Patient");
+                throw new GetByIdError(this.type);
             }
             //Combina la información venida de ambos objetos
             const updatePatient = {...existePaciente, ...updates};
@@ -56,7 +58,7 @@ export class PatientServiceImpl implements PatientService{
             return updatePatient;
 
         } catch (error){
-            throw new UpdateError("Patient");
+            throw new UpdateError(this.type);
         }
     }
 
@@ -65,12 +67,12 @@ export class PatientServiceImpl implements PatientService{
 
             const existePaciente = await this.patientRepository.getPatientById(id);
             if(!existePaciente){
-                throw new GetByIdError("Patient");
+                throw new GetByIdError(this.type);
             }
             await this.patientRepository.deletePatientById(id);
             
         }catch (error){
-            throw new DeleteError("Patient");
+            throw new DeleteError(this.type);
         }
     }
 
