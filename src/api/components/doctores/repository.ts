@@ -1,10 +1,13 @@
 import { Doctor, DoctorReq } from './model';
 import { db } from '../../../config/database';
-import { DoctorCreateError, DoctorDeleteError, DoctorGetAllError, DoctorGetByIdError, DoctorUpdateError } from '../../../utils/customerrors';
+import { CreateError, DeleteError, GetAllError, GetByIdError, UpdateError } from '../../../utils/customerrors';
 
 
 //No implementa ninguna otra clase, es como una clase 'raiz'
 export class DoctorRepository{
+
+    //Tipo para los errores customizables
+    private type = "Doctor";
 
     //Lista todos los doctores
     public async getAllDoctors(): Promise<Doctor[]>{
@@ -12,7 +15,7 @@ export class DoctorRepository{
             //Retorna una variable de tipo any
             return db.select('*').from('doctores');
         }catch(error){
-            throw new DoctorGetAllError();
+            throw new GetAllError(this.type);
         }
     }
 
@@ -23,7 +26,7 @@ export class DoctorRepository{
             const doctor = await db('doctores').where({doct_id: id}).first();
             return doctor;
         }catch(error){
-            throw new DoctorGetByIdError();
+            throw new GetByIdError(this.type);
         }
     }
 
@@ -34,7 +37,7 @@ export class DoctorRepository{
             const [createdDoctor] = await db('doctores').insert(doctor).returning('*');
             return createdDoctor;
         }catch(error){
-            throw new DoctorCreateError();
+            throw new CreateError(this.type);
         }
     }
 
@@ -44,7 +47,7 @@ export class DoctorRepository{
             //Búsqueda del doctor por id, es manejado como objeto
             await db('doctores').where({doct_id: id}).update(updates);
         }catch(error){
-            throw new DoctorUpdateError();
+            throw new UpdateError(this.type);
         }
     } 
     
@@ -54,7 +57,7 @@ export class DoctorRepository{
             //Búsqueda del doctor por id, es manejado como objeto
             await db('doctores').where({doct_id: id}).del();
         }catch(error){
-            throw new DoctorDeleteError();
+            throw new DeleteError(this.type);
         }
     } 
 }

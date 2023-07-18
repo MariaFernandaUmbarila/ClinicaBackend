@@ -30,38 +30,26 @@ El presente proyecto está hecho en Express y corresponde al desarrollo de la ac
 
 ---
 
-# Tareas para realizar
+# Tareas y mejoras realizadas
 
 - [x] **Cambiar el customErrors de config a utils**. El archivo con los errores personalizados puede encontrarse [aquí](https://github.com/MariaFernandaUmbarila/ClinicaBackend/blob/main/src/utils/customerrors.ts).
 
-- [x] **Cambiar los errores específicos por errores genéricos que se puedan adecuar**. Los errores se manejan con un switch case, que establece los valores a usar según el tipo de componente ingresado como parámetro. Por ejemplo:
+- [x] **Terminar el crud de citas y pacientes**. Se finalizó con el CRUD completo de citas y pacientes, como se puede comprobar al probar los endpoints en Postman y al mirar el archivo `routes` de cada componente.
+
+- [ ] **Validación de que el doctor exista antes de crear la cita en el service**.
+
+- [ ] **Completar por lo menos los test de citas o pacientes**
+
+- [x] **Cambiar los errores específicos por errores genéricos que se puedan adecuar**. Los errores se manejan con un switch case, que establece los valores a usar según el tipo de componente ingresado como parámetro. En cada componente, la variable que controla el tipo de error es `private type`. Por ejemplo, para mandar un error customizable desde el servicio de `createDoctor` se usa:
 
 ```
-class GetAllError extends Error{
+private type = "Doctor";
 
-    constructor(type:string){
-        switch(type) { 
-            case "Doctor":{ 
-                super("Fallo al obtener la lista de doctores");
-                this.name = 'DoctorGetAllError';
-                break; 
-            } 
-            case "Patient":{ 
-                super("Fallo al obtener la lista de pacientes");
-                this.name = 'PatientGetAllError';
-                break; 
-            } 
-            case "Appointment":{ 
-                super("Fallo al obtener la lista de citas");
-                this.name = 'AppointmentGetAllError';
-                break; 
-            } 
-            default: { 
-                super("Fallo no identificado en obtener todos");
-                this.name = 'ErrorNotIdentifiedGetAll';
-                break; 
-            } 
-        }         
+public createDoctor(doctorReq:DoctorReq): Promise<Doctor> {
+        try{
+            return this.doctorRepository.createDoctor(doctorReq);
+        } catch (error){
+            throw new CreateError(this.type);
+        }        
     }
-}
 ```

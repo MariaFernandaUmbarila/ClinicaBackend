@@ -34,7 +34,7 @@ export class PatientControllerImpl implements PatientController{
             
         }catch(error){
             logger.error(error);
-            res.status(400).json({message:'Error trayendo pacientees'});
+            res.status(400).json({message:'Error trayendo pacientes'});
         }
     }
 

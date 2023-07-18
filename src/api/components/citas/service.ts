@@ -1,4 +1,5 @@
 import { GetByIdError, DeleteError, CreateError, UpdateError } from '../../../utils/customerrors';
+import logger from '../../../utils/logger';
 import { Doctor } from '../doctores/model';
 import { DoctorRepository } from '../doctores/repository';
 import { Appointment, AppointmentReq, AppointmentResDB } from './model';
@@ -43,12 +44,16 @@ export class AppointmentServiceImpl implements AppointmentService{
     }
 
     public async createAppointment(appoReq:AppointmentReq): Promise<Appointment> {
-        try{
-    
-            //Se usan los datos traídos desde base de datos tanto de la cita...
-            const appointmentDb = await this.appointmentRepository.createAppointment(appoReq);
-            const doctor = await this.doctorRepository.getDoctorById(appointmentDb.cita_doct_id);
-    
+        try{   
+
+            //Si no existe el doctor, devuelve el error y no crea la cita
+            const existeDoctor = await this.doctorRepository.getDoctorById(appoReq.cita_doct_id);
+            if(!existeDoctor){
+                throw new GetByIdError("Doctor");                
+            } 
+            
+            const appointmentDb = await this.appointmentRepository.createAppointment(appoReq); 
+            const doctor = await this.doctorRepository.getDoctorById(appointmentDb.cita_doct_id);              
             const appointmentData:Appointment = mapAppointment(appointmentDb, doctor);    
             return appointmentData;
     
