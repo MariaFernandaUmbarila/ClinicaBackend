@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import logger from '../../../utils/logger';
 import { DoctorService } from './service';
-import { DoctorDeleteError, DoctorGetByIdError, DoctorUpdateError, DoctorCreateError } from '../../../utils/customerrors';
+import { DeleteError, UpdateError, CreateError, GetByIdError } from '../../../utils/customerrors';
 import { createDoctorSchema } from './validations/doctor.validations';
 
 export interface DoctorController{
@@ -17,6 +17,8 @@ export class DoctorControllerImpl implements DoctorController{
 
     //Instanciación del servicio en variable privada
     private doctorService:DoctorService;
+    //Tipo para los errores customizables
+    private type = "Doctor";
 
     //Constructor
     constructor(doctorService:DoctorService){
@@ -44,10 +46,10 @@ export class DoctorControllerImpl implements DoctorController{
             if (doctor){
                 res.status(200).json(doctor);
             }else{
-                throw new DoctorGetByIdError();
+                throw new GetByIdError(this.type);
             }
         }catch (error){
-            if(error instanceof DoctorGetByIdError){
+            if(error instanceof GetByIdError){
                 res.status(400).json({error: error.message});
             }else{
                 res.status(400).json({error: "Error trayendo doctor por id"});
@@ -75,7 +77,7 @@ export class DoctorControllerImpl implements DoctorController{
                     res.status(201).json(doctor);
                 },
                 (error) => {
-                    if (error instanceof DoctorCreateError){
+                    if (error instanceof CreateError){
                         res.status(400).json({error: error.message});
                     } else {
                         res.status(400).json({error: "Internal Server Error"});                   
@@ -96,12 +98,12 @@ export class DoctorControllerImpl implements DoctorController{
             if (doctor){
                 res.status(200).json(doctor);
             }else{
-                throw new DoctorUpdateError();
+                throw new UpdateError(this.type);
             }
         }catch (error){
-            if(error instanceof DoctorGetByIdError){
+            if(error instanceof GetByIdError){
                 res.status(400).json({error: error.message});
-            }else if(error instanceof DoctorUpdateError){
+            }else if(error instanceof UpdateError){
                 res.status(400).json({error: error.message});
             }else{
                 res.status(400).json({error: "Error actualizando al doctor"});
@@ -115,7 +117,7 @@ export class DoctorControllerImpl implements DoctorController{
             await this.doctorService.deleteDoctorById(id);
             res.status(200).json({message: 'Doctor eliminado con exito'})
         }catch (error){
-            if(error instanceof DoctorDeleteError){
+            if(error instanceof DeleteError){
                 res.status(400).json({error: error.message});
             }else{
                 res.status(400).json({error: "Error eliminando doctor por id"});

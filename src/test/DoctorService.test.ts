@@ -32,7 +32,7 @@ describe('DoctorService', () => {
                 doct_nombre: 'Tatiana',
                 doct_apellido: 'Jaramillo', 
                 doct_especialidad: 'Anestesiología',
-                doct_consultorio: '309'
+                doct_consultorio: 309
             }];
 
             //Definición de la respuesta que se espera con jest
@@ -73,7 +73,7 @@ describe('DoctorService', () => {
                 doct_nombre: 'Tatiana',
                 doct_apellido: 'Jaramillo', 
                 doct_especialidad: 'Anestesiología',
-                doct_consultorio: '309'
+                doct_consultorio: 309
             };            
 
             //Definición de la respuesta que se espera con jest
@@ -128,7 +128,7 @@ describe('DoctorService', () => {
                 doct_nombre: 'Roberta',
                 doct_apellido: 'Salazar', 
                 doct_especialidad: 'Medicina general',
-                doct_consultorio: '404',
+                doct_consultorio: 404,
                 doct_correo: 'rsalazar@gmail.com'
             }];
             //Instanciación del modelo del request
@@ -136,7 +136,7 @@ describe('DoctorService', () => {
                 doct_nombre: 'Roberta',
                 doct_apellido: 'Salazar', 
                 doct_especialidad: 'Medicina general',
-                doct_consultorio: '404',
+                doct_consultorio: 404,
                 doct_correo: 'rsalazar@gmail.com'
             };
 
@@ -163,14 +163,14 @@ describe('DoctorService', () => {
                 doct_nombre: 'Roberta',
                 doct_apellido: 'Salazar', 
                 doct_especialidad: 'Medicina general',
-                doct_consultorio: '404',
+                doct_consultorio: 404,
                 doct_correo: 'rsalazar@gmail.com'
             }];
             const doctReq:DoctorReq = {
                 doct_nombre: 'Roberta',
                 doct_apellido: 'Salazar', 
                 doct_especialidad: 'Medicina general',
-                doct_consultorio: '404',
+                doct_consultorio: 404,
                 doct_correo: 'rsalazar@gmail.com'
             };
 

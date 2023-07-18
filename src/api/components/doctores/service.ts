@@ -1,4 +1,4 @@
-import { DoctorCreateError, DoctorDeleteError, DoctorGetByIdError, DoctorUpdateError } from '../../../utils/customerrors';
+import { CreateError, DeleteError, GetByIdError, UpdateError } from '../../../utils/customerrors';
 import { Doctor, DoctorReq } from './model';
 import { DoctorRepository } from './repository';
 
@@ -15,6 +15,8 @@ export interface DoctorService{
 export class DoctorServiceImpl implements DoctorService{
 
     private doctorRepository:DoctorRepository;
+    //Tipo para los errores customizables
+    private type = "Doctor";
 
     constructor(doctorRepository:DoctorRepository){
         this.doctorRepository = doctorRepository;
@@ -29,7 +31,7 @@ export class DoctorServiceImpl implements DoctorService{
         try{
             return this.doctorRepository.getDoctorById(id);
         }catch (error){
-            throw new DoctorGetByIdError();
+            throw new GetByIdError(this.type);
         }
     }
 
@@ -37,7 +39,7 @@ export class DoctorServiceImpl implements DoctorService{
         try{
             return this.doctorRepository.createDoctor(doctorReq);
         } catch (error){
-            throw new DoctorCreateError();
+            throw new CreateError(this.type);
         }        
     }
 
@@ -46,7 +48,7 @@ export class DoctorServiceImpl implements DoctorService{
             //Primero se verifica que el doctor existe
             const existeDoctor = this.doctorRepository.getDoctorById(id);
             if(!existeDoctor){
-                throw new DoctorGetByIdError();
+                throw new GetByIdError(this.type);
             }
             //Combina la información venida de ambos objetos
             const updateDoctor = {...existeDoctor, ...updates};
@@ -56,7 +58,7 @@ export class DoctorServiceImpl implements DoctorService{
             return updateDoctor;
 
         } catch (error){
-            throw new DoctorUpdateError();
+            throw new UpdateError(this.type);
         }
     }
 
@@ -65,12 +67,12 @@ export class DoctorServiceImpl implements DoctorService{
 
             const existeDoctor = await this.doctorRepository.getDoctorById(id);
             if(!existeDoctor){
-                throw new DoctorGetByIdError();
+                throw new GetByIdError(this.type);
             }
             await this.doctorRepository.deleteDoctorById(id);
             
         }catch (error){
-            throw new DoctorDeleteError();
+            throw new DeleteError(this.type);
         }
     }
 

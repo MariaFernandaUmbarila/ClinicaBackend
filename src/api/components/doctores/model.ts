@@ -4,7 +4,7 @@ export interface Doctor{
     doct_nombre: string,
     doct_apellido: string,
     doct_especialidad: string,
-    doct_consultorio: string,
+    doct_consultorio: number,
     doct_correo?: string,
     doct_createdAt?: Date
     doct_updatedAt?: Date

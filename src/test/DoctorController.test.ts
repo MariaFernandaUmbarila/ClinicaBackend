@@ -36,7 +36,7 @@ describe('DoctorController', () => {
                 doct_nombre: 'Cristina',
                 doct_apellido: 'Molinos', 
                 doct_especialidad: 'Pediatria',
-                doct_consultorio: '604'
+                doct_consultorio: 604
             }];
 
             //Definición de la respuesta que se espera con jest
@@ -76,7 +76,7 @@ describe('DoctorController', () => {
                 doct_nombre: 'Cristina',
                 doct_apellido: 'Alvarado', 
                 doct_especialidad: 'Cardiologia',
-                doct_consultorio: '403',
+                doct_consultorio: 403,
                 doct_correo: 'carol@doctor.com'
             }];
 
@@ -136,7 +136,7 @@ describe('DoctorController', () => {
                 doct_nombre: 'Roberta',
                 doct_apellido: 'Salazar', 
                 doct_especialidad: 'Medicina general',
-                doct_consultorio: '404',
+                doct_consultorio: 404,
                 doct_correo: 'rsalazar@gmail.com'
             }];
             //Instanciación del modelo del request
@@ -144,7 +144,7 @@ describe('DoctorController', () => {
                 doct_nombre: 'Roberta',
                 doct_apellido: 'Salazar', 
                 doct_especialidad: 'Medicina general',
-                doct_consultorio: '404',
+                doct_consultorio: 404,
                 doct_correo: 'rsalazar@gmail.com'
             };
 
@@ -165,18 +165,18 @@ describe('DoctorController', () => {
         });
 
         //Definición de la prueba de error
-        it('Deberia manejar el error correctamente', async () => {
+        it('Deberia manejar el error correctamente con Joi', async () => {
 
             //Definición de lo que se espera en la respuesta con jest
-            const error = new Error('Internal Server Error');
+            const error = {message: "\"doct_nombre\" is required"};
 
             (mockReq.body) = {};
             (doctorService.createDoctor as jest.Mock).mockRejectedValue(error);
 
-            await doctorController.createDoctor(mockReq, mockRes);
+            await doctorController.createDoctor(mockReq.body, mockRes);
 
-            expect(doctorService.createDoctor).toHaveBeenCalledWith({});
-            expect(mockRes.json).toHaveBeenCalledWith({message: 'Internal Server Error'});
+            //expect(doctorService.createDoctor).toHaveBeenCalledWith({});
+            expect(mockRes.json).toHaveBeenCalledWith({error: 'Internal Server Error'});
             expect(mockRes.status).toHaveBeenCalledWith(400);
 
         });

@@ -373,12 +373,12 @@
 					"response": []
 				},
 				{
-					"name": "Eliminar",
+					"name": "Eliminar cita",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3030/api/v1/doctores/eliminar/2",
+							"raw": "localhost:3030/api/v1/citas/eliminar/1",
 							"host": [
 								"localhost"
 							],
@@ -386,9 +386,9 @@
 							"path": [
 								"api",
 								"v1",
-								"doctores",
+								"citas",
 								"eliminar",
-								"2"
+								"1"
 							]
 						}
 					},

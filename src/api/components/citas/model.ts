@@ -3,7 +3,7 @@ export interface Appointment {
     cita_especialidad: string
     cita_paci_identif: string
     cita_doctor: string
-    cita_consultorio: string
+    cita_consultorio: number
     cita_horario: string
 }
 
@@ -24,7 +24,7 @@ export interface AppointmentResDB {
     cita_doct_id: number
     cita_doctor: string
     cita_paci_identif: string
-    cita_consultorio: string
+    cita_consultorio: number
     cita_created_at: string
     cita_updated_at: string
 }
