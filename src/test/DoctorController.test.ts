@@ -175,7 +175,6 @@ describe('DoctorController', () => {
 
             await doctorController.createDoctor(mockReq.body, mockRes);
 
-            //expect(doctorService.createDoctor).toHaveBeenCalledWith({});
             expect(mockRes.json).toHaveBeenCalledWith({error: 'Internal Server Error'});
             expect(mockRes.status).toHaveBeenCalledWith(400);
 

@@ -69,6 +69,8 @@ export class AppointmentControllerImpl implements AppointmentController{
             (error) => {
                 if (error instanceof CreateError){
                     res.status(400).json({error: error.message});
+                } else if (error instanceof GetByIdError){
+                    res.status(400).json({error: error.message});
                 } else {
                     res.status(400).json({error: "Internal Server Error"});                   
                 }

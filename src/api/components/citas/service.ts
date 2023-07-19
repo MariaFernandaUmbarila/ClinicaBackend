@@ -44,22 +44,21 @@ export class AppointmentServiceImpl implements AppointmentService{
     }
 
     public async createAppointment(appoReq:AppointmentReq): Promise<Appointment> {
-        try{   
 
-            //Si no existe el doctor, devuelve el error y no crea la cita
-            const existeDoctor = await this.doctorRepository.getDoctorById(appoReq.cita_doct_id);
-            if(!existeDoctor){
-                throw new GetByIdError("Doctor");                
-            } 
-            
-            const appointmentDb = await this.appointmentRepository.createAppointment(appoReq); 
-            const doctor = await this.doctorRepository.getDoctorById(appointmentDb.cita_doct_id);              
-            const appointmentData:Appointment = mapAppointment(appointmentDb, doctor);    
-            return appointmentData;
-    
-        } catch (error){
-            throw new CreateError(this.type);
-        }        
+        //Si no existe el doctor, devuelve el error y no crea la cita
+        const existeDoctor = await this.doctorRepository.getDoctorById(appoReq.cita_doct_id);
+        if(!existeDoctor){
+            throw new GetByIdError("Doctor");                
+        }else{
+            try{  
+                const appointmentDb = await this.appointmentRepository.createAppointment(appoReq); 
+                const doctor = await this.doctorRepository.getDoctorById(appointmentDb.cita_doct_id);              
+                const appointmentData:Appointment = mapAppointment(appointmentDb, doctor);    
+                return appointmentData;
+            } catch (error){
+                throw new CreateError(this.type);
+            }
+        }               
     }
 
     public async updateAppointmentById(id:number, updates:Partial<AppointmentReq>): Promise<Appointment>{
