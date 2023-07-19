@@ -91,6 +91,6 @@ public createDoctor(doctorReq:DoctorReq): Promise<Doctor> {
 
 # Mejoras pendientes
 
-- [ ] Agregar validación de campos con Joi para todos los componentes y peticiones.
+- [ ] Agregar validación de campos con Joi para todos los componentes y peticiones
 - [ ] Implementar test de citas
-- [ ] Llenar los campos de created_at y updated_at cuando se hace la creación o actualización de un componente
+- [ ] Llenar los campos de `created_at` y `updated_at` cuando se hace la creación o actualización de un componente
