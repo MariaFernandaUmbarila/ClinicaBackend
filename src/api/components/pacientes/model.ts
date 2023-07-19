@@ -13,6 +13,6 @@ export interface Patient {
 export interface PatientReq {
     paci_nombre: string
     paci_apellido: string
-    paci_identif: string
+    paci_identifi: string
     paci_telefono?: number
 }

@@ -7,7 +7,7 @@ import { GetAllError, GetByIdError, CreateError, UpdateError, DeleteError } from
 export class PatientRepository{
 
     //Tipo para los errores customizables
-    private type = "Patient";
+    public type:string = "Patient";
 
     //Lista todos los pacientees
     public async getAllPatients(): Promise<Patient[]>{

@@ -23,6 +23,7 @@ describe('PatientController', () => {
         patientController = new PatientControllerImpl(patientService);
         mockRes.status = jest.fn().mockReturnThis();
         mockRes.json = jest.fn().mockReturnThis();
+        
     });
 
     describe('getAllPatients', () => {
@@ -141,7 +142,7 @@ describe('PatientController', () => {
             const doctReq:PatientReq = {
                 paci_nombre: "Esperanza",
                 paci_apellido: "Cruz",
-                paci_identif: "52478115"
+                paci_identifi: "52478115"
             };
 
             //Se establece el body del request

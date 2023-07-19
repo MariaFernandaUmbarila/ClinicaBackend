@@ -16,7 +16,7 @@ export class PatientServiceImpl implements PatientService{
 
     private patientRepository:PatientRepository;
     //Tipo para los errores customizables
-    private type = "Patient";
+    public type:string = "Patient";
 
     constructor(patientRepository:PatientRepository){
         this.patientRepository = patientRepository;

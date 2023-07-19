@@ -21,7 +21,7 @@ export class AppointmentServiceImpl implements AppointmentService{
     private doctorRepository:DoctorRepository;
 
     //Tipo para los errores customizables
-    private type = "Appointment";
+    public type:string = "Appointment";
 
     constructor(appointmentRepository:AppointmentRepository, doctorRepository:DoctorRepository){
         this.appointmentRepository = appointmentRepository;

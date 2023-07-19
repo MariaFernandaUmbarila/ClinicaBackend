@@ -30,7 +30,7 @@ El presente proyecto está hecho en Express y corresponde al desarrollo de la ac
 
 ---
 
-# Tareas y mejoras realizadas
+# Tareas y mejoras
 
 - [x] **Cambiar el customErrors de config a utils**. El archivo con los errores personalizados puede encontrarse [aquí](https://github.com/MariaFernandaUmbarila/ClinicaBackend/blob/main/src/utils/customerrors.ts).
 
@@ -38,7 +38,7 @@ El presente proyecto está hecho en Express y corresponde al desarrollo de la ac
 
 - [ ] **Validación de que el doctor exista antes de crear la cita en el service**.
 
-- [ ] **Completar por lo menos los test de citas o pacientes**
+- [x] **Completar por lo menos los test de citas o pacientes**. Se completó correctamente los test de pacientes con jest, como se puede ver en [esta carpeta](https://github.com/MariaFernandaUmbarila/ClinicaBackend/blob/main/src/test).
 
 - [x] **Cambiar los errores específicos por errores genéricos que se puedan adecuar**. Los errores se manejan con un switch case, que establece los valores a usar según el tipo de componente ingresado como parámetro. En cada componente, la variable que controla el tipo de error es `private type`. Por ejemplo, para mandar un error customizable desde el servicio de `createDoctor` se usa:
 

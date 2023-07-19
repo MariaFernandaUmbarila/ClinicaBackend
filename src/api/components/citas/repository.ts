@@ -7,7 +7,7 @@ import { GetAllError, GetByIdError, UpdateError, CreateError, DeleteError } from
 export class AppointmentRepository{
 
     //Tipo para los errores customizables
-    private type = "Appointment";
+    public type:string = "Appointment";
 
     //Lista todos los doctores
     public async getAllAppointments(): Promise<Appointment[]>{

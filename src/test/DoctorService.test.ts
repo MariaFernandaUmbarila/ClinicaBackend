@@ -11,14 +11,15 @@ describe('DoctorService', () => {
 
     //Definición de objetos a usar como mock
     beforeEach (() => {
-        doctorRepository= {
+        doctorRepository = {
             getAllDoctors: jest.fn(),
             getDoctorById: jest.fn(),
             createDoctor: jest.fn(),
             deleteDoctorById: jest.fn(),
-            updateDoctorById: jest.fn()
+            updateDoctorById: jest.fn(),
+            type: "Doctor"
         };
-        doctorService= new DoctorServiceImpl(doctorRepository);
+        doctorService = new DoctorServiceImpl(doctorRepository);
     });
 
     describe('getAllDoctors', () => {
@@ -158,14 +159,6 @@ describe('DoctorService', () => {
             //Definición de lo que se espera en la respuesta con jest
             const error = new Error('Internal Server Error');
 
-            const doctorRes:Doctor[] = [{
-                doct_id: 9, 
-                doct_nombre: 'Roberta',
-                doct_apellido: 'Salazar', 
-                doct_especialidad: 'Medicina general',
-                doct_consultorio: 404,
-                doct_correo: 'rsalazar@gmail.com'
-            }];
             const doctReq:DoctorReq = {
                 doct_nombre: 'Roberta',
                 doct_apellido: 'Salazar', 
