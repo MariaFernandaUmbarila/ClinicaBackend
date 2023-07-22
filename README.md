@@ -13,6 +13,8 @@ El presente proyecto está hecho en Express y corresponde al desarrollo de la ac
 + PostgreSQL: última imagen traída desde el repositorio de Docker
 + Colección de Postman: versión 2.1
 
+**Nombre de la base de datos**: clinica_backend
+
 ---
 
 ## Pasos para ejecutar el proyecto en máquina local
